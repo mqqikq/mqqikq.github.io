@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>mqqikq — projects</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main>
+    <header>
+      <h1>mqqikq</h1>
+      <p class="lede">Two from-scratch backend projects: a concurrent C HTTP server and a spaced-repetition REST API.</p>
+      <p class="links"><a href="https://github.com/mqqikq">GitHub</a></p>
+    </header>
+
+    <section class="project">
+      <h2><a href="https://github.com/mqqikq/tiny-httpd">tiny-httpd</a></h2>
+      <p class="badges">
+        <a href="https://github.com/mqqikq/tiny-httpd/actions/workflows/ci.yml">
+          <img src="https://github.com/mqqikq/tiny-httpd/actions/workflows/ci.yml/badge.svg" alt="CI status">
+        </a>
+      </p>
+      <p>
+        A static-file HTTP/1.1 server written from scratch in C — no libevent, no
+        libuv, just POSIX sockets and a hand-rolled request parser. The core is a
+        single-threaded <code>epoll</code> event loop driving non-blocking I/O,
+        so one slow or half-sent request never stalls any other connection.
+      </p>
+      <ul>
+        <li>Non-blocking <code>epoll</code> event loop, HTTP/1.1 keep-alive, <code>sendfile()</code> zero-copy</li>
+        <li><code>SO_REUSEPORT</code> multi-worker processes, idle-connection timeouts, access log</li>
+        <li>Live <code>/dashboard</code> over Server-Sent Events, with a "Generate load" button that makes the concurrency visible</li>
+        <li>One-command Docker demo (<code>make demo</code>), <code>wrk</code> benchmark table in the README</li>
+        <li>Path-traversal-hardened static file serving; clean under ASan/UBSan/valgrind in CI</li>
+      </ul>
+      <p class="cta"><a href="https://github.com/mqqikq/tiny-httpd">Source &amp; README →</a></p>
+    </section>
+
+    <section class="project">
+      <h2><a href="https://github.com/mqqikq/flashcards-api">flashcards-api</a></h2>
+      <p class="badges">
+        <a href="https://github.com/mqqikq/flashcards-api/actions/workflows/ci.yml">
+          <img src="https://github.com/mqqikq/flashcards-api/actions/workflows/ci.yml/badge.svg" alt="CI status">
+        </a>
+      </p>
+      <p>
+        A REST API for studying flashcards with spaced repetition — decks, cards,
+        and a review endpoint that schedules each card's next appearance with an
+        SM-2-lite algorithm, the same family Anki uses.
+      </p>
+      <ul>
+        <li>FastAPI + SQLAlchemy + SQLite, zero setup, no database server to run</li>
+        <li>The scheduler is a pure function, unit-tested independently of the API and the database</li>
+        <li>Deck/card CRUD, due-today review queue, <code>/stats</code> aggregate counts</li>
+        <li>Auto-generated interactive docs at <code>/docs</code> (Swagger UI)</li>
+        <li>19 pytest tests, GitHub Actions CI</li>
+      </ul>
+      <p class="cta"><a href="https://github.com/mqqikq/flashcards-api">Source &amp; README →</a></p>
+    </section>
+  </main>
+</body>
+</html>
